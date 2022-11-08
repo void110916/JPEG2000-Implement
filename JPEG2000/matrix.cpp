@@ -6,7 +6,7 @@ Matrix<T>::Matrix(int raw, int col) : _raw(raw), _col(col) {
 }
 
 template<typename T>
-Matrix<T>::~Matrix() {}
+Matrix<T>::~Matrix() {delete addr;}
 template<typename T>
 T& Matrix<T>::at(int raw,int col){return addr[raw*_col+col];}
 
