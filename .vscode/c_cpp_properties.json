@@ -1,0 +1,39 @@
+{
+    "env": {
+        "WIN32_GCC_PATH": "C:/Program Files/mingw64/bin",
+        "LINUX_GCC_PATH": "/usr/bin"
+    },
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "ENABLE_FEATURE=1",
+                "ENABLE_OTHER_FEATURE=0"
+            ],
+            "compilerPath": "${env:WIN32_GCC_PATH}/g++",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-x64",
+            "configurationProvider": "vector-of-bool.cmake-tools"
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "ENABLE_FEATURE=1",
+                "ENABLE_OTHER_FEATURE=0"
+            ],
+            "compilerPath": "${env:LINUX_GCC_PATH}/g++",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64",
+            "configurationProvider": "vector-of-bool.cmake-tools"
+        }
+    ],
+    "version": 4
+}
