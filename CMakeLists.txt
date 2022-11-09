@@ -18,7 +18,7 @@ add_executable(${PROJECT_NAME}
 # ================================================================= #
 # ===== add custom libraries ============================================ #
 add_subdirectory(JPEG2000)
-target_link_libraries(${PROJECT_NAME} PRIVATE libJPEG2000)
+target_link_libraries(${PROJECT_NAME} PRIVATE JPEG2000lib)
 # ================================================================= #
 # ===== add install =====　The following script must only be executed at install time ======= #
 # Omitting RUNTIME DESTINATION will install a non-bundle target to CMAKE_INSTALL_BINDIR,

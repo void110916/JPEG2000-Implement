@@ -1,9 +1,7 @@
 
-add_library(libJPEG2000 STATIC # Add file below when creating new file
+add_library(JPEG2000lib STATIC # Add file below when creating new file
     matrix.h
-    matrix.cpp
-    wavelet.h
     wavelet.cpp
-
+    wavelet.h
 )
-target_include_directories(libJPEG2000 INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(JPEG2000lib INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
