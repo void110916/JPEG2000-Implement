@@ -30,16 +30,10 @@ class Matrix {
   };
   Array operator[](int raw) { return Array(*this, raw); }
   T& at(int raw, int col);
+  const int height() { return _raw; }
+  const int width() { return _col; }
 };
 // https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file
-template<typename T>
-Matrix<T>::Matrix(int raw, int col) : _raw(raw), _col(col) {
-  addr=new T[raw * col]();
-}
-
-template<typename T>
-Matrix<T>::~Matrix() {delete addr;}
-template<typename T>
-T& Matrix<T>::at(int raw,int col){return addr[raw*_col+col];}
+#include "matrix.tpp"
 }  // namespace JPEG2000
 #endif

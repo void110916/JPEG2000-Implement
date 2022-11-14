@@ -1,7 +1,7 @@
 #include "wavelet.h"
 
 namespace JPEG2000 {
-WAVELET::WAVELET() {}
+Wavelet::Wavelet() {}
 
-WAVELET::~WAVELET() {}
+Wavelet::~Wavelet() {}
 }  // namespace JPEG2000

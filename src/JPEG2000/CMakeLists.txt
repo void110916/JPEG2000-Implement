@@ -1,5 +1,6 @@
 
 add_library(JPEG2000lib STATIC # Add file below when creating new file
+    # matrix.tpp
     matrix.h
     wavelet.cpp
     wavelet.h
