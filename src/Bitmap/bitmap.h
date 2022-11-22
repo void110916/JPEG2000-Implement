@@ -191,7 +191,7 @@ class BMPWriter {
   }
 
   template <typename T>
-  void write(const JPEG2000::Matrix3D<T> rawImage,
+  void write(const JPEG2000::Matrix3D<T> &rawImage,
              const std::string& filename) {
     header.width = rawImage.width();
     header.height = rawImage.height();

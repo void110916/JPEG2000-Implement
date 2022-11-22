@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <vector>
 namespace JPEG2000 {
+
 template <typename T>
 class Matrix3D;
 template <typename T>
@@ -16,7 +17,7 @@ class Matrix {
  protected:
   size_t _current_channel = 0, _raw, _col;
   Matrix3D<T>* M_parent = nullptr;
-  T* addr = nullptr;
+  std::vector<T> addr;
 
  private:
   Matrix(Matrix3D<T>* parent, int current_channel)
@@ -24,17 +25,17 @@ class Matrix {
 
  public:
   friend Matrix3D<T>;
-  Matrix(size_t raw, size_t col, bool zeros = true) : _raw(raw), _col(col) {
-    if (zeros)
-      addr = new T[raw * col]();
-    else
-      addr = new T[raw * col];
+  Matrix(size_t raw, size_t col) : _raw(raw), _col(col), addr(raw * col) {
+    // if (zeros)
+    //   addr = new T[raw * col]();
+    // else
+    //   addr = new T[raw * col];
   }
   Matrix(size_t raw, size_t col, std::vector<uint8_t>& data)
-      : _raw(raw), _col(col) {
-    addr = std::move(reinterpret_cast<T*>(data.data()));
+      : _raw(raw), _col(col), addr(std::move(data)) {}
+  ~Matrix() {
+    // delete addr;
   }
-  ~Matrix() { delete addr; }
   struct Array {
    private:
     friend class Matrix;
@@ -51,8 +52,8 @@ class Matrix {
   };
   Array operator[](size_t raw) { return Array(*this, raw); }
   T& at(size_t raw, size_t col) {
-    return addr ? addr[raw * _col + col]
-                : M_parent->at(_current_channel, raw, col);
+    return M_parent ? M_parent->at(_current_channel, raw, col)
+                    : addr[raw * _col + col];
   }
   int height() const { return _raw; }
   int width() const { return _col; }
@@ -62,9 +63,9 @@ template <typename T>
 class Matrix3D {
  private:
   size_t _channel, _raw, _col;
-  
+
  public:
- std::vector<T> addr;
+  std::vector<T> addr;
 
   Matrix3D(size_t channel, size_t raw, size_t col, bool zeros = true)
       : _channel(channel), _raw(raw), _col(col), addr(channel * raw * col) {
@@ -77,6 +78,11 @@ class Matrix3D {
       : Matrix3D(channel, raw, col, false) {
     addr = std::move(data);
   }
+  Matrix3D(Matrix3D&& front)
+      : _channel(front._channel),
+        _raw(front._raw),
+        _col(front._col),
+        addr(std::move(front.addr)){};
   ~Matrix3D() {
     // delete addr;
   }
