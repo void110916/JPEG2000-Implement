@@ -24,15 +24,13 @@ function(add_test_executable fileName)
     # ================================================================= #
 endfunction(add_test_executable)
 
-add_test_executable(matrixRead )
-add_test_executable(bitmapWR)
-message(${CMAKE_CURRENT_SOURCE_DIR})
-message(${CMAKE_CURRENT_BINARY_DIR})
-set(IMAGE_SOURCE dinor.bmp Test_card.bmp)
+add_test_executable(matrix)
+add_test_executable(bitmap)
+set(IMAGE_SOURCE dinor.bmp Test_card.bmp test_colorbars_1920x1080.bmp test_gradation_640x480.bmp)
 foreach(IMAGE ${IMAGE_SOURCE})
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/img/${IMAGE}
     ${CMAKE_CURRENT_BINARY_DIR}/${IMAGE} COPYONLY)
 endforeach(IMAGE IMAGESOURCE)
 
 
-add_test_executable(3DMatrix)
+add_test_executable(matrix3D)

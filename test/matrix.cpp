@@ -3,7 +3,7 @@
 #include "matrix.h"
 #include "wavelet.h"
 
-using namespace std::string_literals;
+
 // using namespace JPEG2000;
 int main() {
   JPEG2000::Matrix<uint16_t> m(5, 5);
