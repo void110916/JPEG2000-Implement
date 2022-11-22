@@ -33,9 +33,7 @@ class Matrix {
   }
   Matrix(size_t raw, size_t col, std::vector<uint8_t>& data)
       : _raw(raw), _col(col), addr(std::move(data)) {}
-  ~Matrix() {
-    // delete addr;
-  }
+
   struct Array {
    private:
     friend class Matrix;
@@ -78,14 +76,19 @@ class Matrix3D {
       : Matrix3D(channel, raw, col, false) {
     addr = std::move(data);
   }
-  Matrix3D(Matrix3D&& front)
+
+  // Matrix3D(Matrix3D& front)
+  //     : _channel(front._channel),
+  //       _raw(front._raw),
+  //       _col(front._col),
+  //       addr(std::move(front.addr)){};
+
+  Matrix3D(Matrix3D&& front) noexcept
       : _channel(front._channel),
         _raw(front._raw),
         _col(front._col),
         addr(std::move(front.addr)){};
-  ~Matrix3D() {
-    // delete addr;
-  }
+
   Matrix<T> operator[](size_t channel) { return Matrix(this, channel); }
   T& at(size_t channel, size_t raw, size_t col) {
     return addr[channel * _raw * _col + raw * _col + col];
