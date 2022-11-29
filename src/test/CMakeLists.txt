@@ -3,7 +3,6 @@ function(add_test_executable fileName)
     set(PROJECT_SOURCES
     ${fileName}.cpp ${ARGN}
     )
-
     add_executable(${fileName}
     ${PROJECT_SOURCES}
     )
@@ -11,6 +10,17 @@ function(add_test_executable fileName)
     message(STATUS "Add executable ${fileName}.cpp")
     if(NOT ARGN STREQUAL "")
         message(STATUS "    With file ${ARGN}")
+    endif(NOT ARGN STREQUAL "")
+    # ================================================================= #
+    # ===== add CTest ============================================= #
+    add_test(NAME ${fileName}_test COMMAND ${fileName} )
+    if(UNIX AND NOT APPLE) # Linux platform
+    add_custom_target(${fileName}_test
+    COMMAND ${CMAKE_CTEST_COMMAND} 
+        --force-new-ctest-process --test-action memcheck
+    COMMAND cat "${CMAKE_BINARY_DIR}/Testing/Temporary/MemoryChecker.*.log"
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+    message(STATUS "Enable valgrind memory check")
     endif()
     # ================================================================= #
     # ===== add install =====　The following script must only be executed at install time ======= #

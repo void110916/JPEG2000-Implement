@@ -1,17 +1,6 @@
 {
     "C_Cpp.intelliSenseEngine":"Tag Parser",
-    "cmake.generator": "Ninja",
-    "cmake.configureOnOpen": true,
-    "cmake.configureSettings": {
-        "CMAKE_MAKE_PROGRAM": "C:/Program Files/ninja/ninja.exe",
-        "ENABLE_FEATURE": "1",
-        "ENABLE_OTHER_FEATURE": "0",
-    },
-    "cmake.environment": {
-        "PATH": "%PATH%;C:/Program Files/mingw64/bin"  //  ## IMPORTANT
-    },
-    "cmake.buildDirectory": "${workspaceFolder}/build/${buildKitHostOs}/${buildType}",
-    "cmake.installPrefix": "${workspaceFolder}/build/${buildKitHostOs}/install/",
+    "cmake.sourceDirectory":"${workspaceFolder}/src",
     "files.associations": {
         "vector": "cpp",
         "new": "cpp",
@@ -62,6 +51,5 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "*.tpp": "cpp"
-    },
-    "cmake.sourceDirectory": "${workspaceFolder}/."
+    }
 }

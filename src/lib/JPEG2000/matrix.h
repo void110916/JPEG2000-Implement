@@ -77,11 +77,11 @@ class Matrix3D {
     addr = std::move(data);
   }
 
-  // Matrix3D(Matrix3D& front)
-  //     : _channel(front._channel),
-  //       _raw(front._raw),
-  //       _col(front._col),
-  //       addr(std::move(front.addr)){};
+  Matrix3D(Matrix3D& front)
+      : _channel(front._channel),
+        _raw(front._raw),
+        _col(front._col),
+        addr(std::move(front.addr)){};
 
   Matrix3D(Matrix3D&& front) noexcept
       : _channel(front._channel),

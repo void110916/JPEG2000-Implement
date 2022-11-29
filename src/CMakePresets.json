@@ -1,0 +1,141 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 24,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "default",
+            "hidden": true,
+            "displayName": "Default Config",
+            "description": "Default build using Ninja generator",
+            "generator": "Ninja",
+            "cmakeExecutable": "C:/Program Files/CMake/bin/cmake.exe",
+            "binaryDir": "${workspaceFolder}/build/${presetName}",
+            "installDir": "${workspaceFolder}/build/Install/"
+        },
+        {
+            "name": "win32/Release",
+            "displayName": "mingw64 release",
+            "description": "build using Ninja generator in windows x86_64",
+            "inherits": "default",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_MAKE_PROGRAM": "C:/Program Files/ninja/ninja.exe",
+                "CMAKE_CXX_COMPILER": "g++.exe"
+            },
+            "environment": {
+                "PATH": "C:/Program Files/mingw64/bin;$penv{PATH}"
+            }
+        },
+        {
+            "name": "win32/Debug",
+            "displayName": "mingw64 debug",
+            "description": "build using Ninja generator in windows x86_64",
+            "inherits": "win32/Release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "linux/Release",
+            "displayName": "linux release",
+            "description": "build using Ninja generator in Linux x86_64",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_MAKE_PROGRAM": "ninja",
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "environment": {
+                "PATH": "$penv{PATH}"
+            }
+        },
+        {
+            "name": "linux/Debug",
+            "displayName": "linux debug",
+            "description": "build using Ninja generator in Linux x86_64",
+            "inherits": "linux/Release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "Release",
+            "configurePreset": "win32/Release"
+        },
+        {
+            "name": "Debug",
+            "configurePreset": "win32/Debug"
+        },
+        {
+            "name": "Debug",
+            "configurePreset": "linux/Debug"
+        },
+        {
+            "name": "Release",
+            "configurePreset": "linux/Release"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "x64-mingw-Debug",
+            "configurePreset": "win32/Debug",
+            "description": "time test",
+            "output": {
+                "outputOnFailure": true
+            }
+        },
+        {
+            "name": "x64-mingw-Release",
+            "configurePreset": "win32/Release",
+            "description": "time test",
+            "output": {
+                "outputOnFailure": true
+            }
+        },
+        {
+            "name": "x64-linux-Release",
+            "configurePreset": "linux/Release",
+            "description": "time test only",
+            "output": {
+                "outputOnFailure": true
+            }
+        },
+        {
+            "name": "x64-linux-Debug",
+            "configurePreset": "linux/Debug",
+            "description": "time test only",
+            "output": {
+                "outputOnFailure": true
+            }
+        },
+        {
+            "name": "linux-Release-valgrind",
+            "configuration": "memcheck",
+            "inherits":"x64-linux-Release",
+            "description": "time test and valgrind memcheck",
+            "overwriteConfigurationFile":[
+                "-T","MemCheck"
+            ]
+        },
+        {
+            "name": "linux-Debug-valgrind",
+            "configuration": "memcheck",
+            "inherits":"x64-linux-Debug",
+            "description": "time test and valgrind memcheck",
+            "overwriteConfigurationFile":[
+                "-T","MemCheck"
+            ]
+        }
+        
+    ]
+}
